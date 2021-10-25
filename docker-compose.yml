@@ -1,0 +1,82 @@
+version: "3"
+services:
+  app:
+    image: converter
+    container_name: converter-server
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: ${APP_ENV}
+      CONTAINER_ROLE: app
+      CACHE_DRIVER: ${CACHE_DRIVER}
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      QUEUE_DRIVER: ${QUEUE_DRIVER}
+      REDIS_HOST: redis
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+  scheduler:
+    image: converter
+    container_name: converter-scheduler
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: scheduler
+      CACHE_DRIVER: ${CACHE_DRIVER}
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      QUEUE_DRIVER: ${QUEUE_DRIVER}
+      REDIS_HOST: redis
+
+  queue:
+    image: converter
+    container_name: converter-queue
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: queue
+      CACHE_DRIVER: ${CACHE_DRIVER}
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      QUEUE_DRIVER: ${QUEUE_DRIVER}
+      REDIS_HOST: redis
+
+  redis:
+    container_name: converter-redis
+    image: redis:4-alpine
+    ports:
+      - 16379:6379
+    volumes:
+      - redis:/data
+
+  postgres:
+    image: postgres:10
+    container_name: converter-postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - 5432:5432
+
+volumes:
+  redis:
+    driver: "local"
+  mysql:
+    driver: "local"
