@@ -1,0 +1,18 @@
+dist: bionic
+language: php
+php:
+- '8.0'
+install:
+- composer install
+services:
+- docker
+before_script:
+- cp .env.travis .env
+- sudo /etc/init.d/postgresql stop
+script:
+- make build
+- docker ps -a
+- docker exec -it converter-server make generate-key
+- docker exec -it converter-server make lint
+- docker exec -it converter-server make migration
+- docker exec -it converter-server make test
