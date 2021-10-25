@@ -1,0 +1,22 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API v1",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/healthcheck": {
+            "get": {
+                "operationId": "4970bda99966db76a55ecf26fa94249a",
+                "responses": {
+                    "200": {
+                        "description": "Health check endpoint."
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
