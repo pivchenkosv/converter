@@ -12,6 +12,7 @@ fi
 
 if [ "$role" = "app" ]; then
 
+    php /var/www/html/artisan migrate
     exec apache2-foreground
 
 elif [ "$role" = "queue" ]; then

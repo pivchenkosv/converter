@@ -7,7 +7,7 @@ lint:
 lint-fix:
 	./vendor/bin/phpcbf -- --standard=PSR12 app tests
 migration:
-	php artisan migrate
+	php artisan migrate --seed
 generate-key:
 	composer run post-autoload-dump
 	composer run post-root-package-install
