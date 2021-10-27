@@ -27,7 +27,7 @@ class ConversionService
             'crypto' => $to,
         ]);
 
-        return match($result::class) {
+        return match ($result::class) {
             Success::class => new Success($result->getResult()),
             Failure::class => new Failure($result->getCode(), $result->getMessage()),
         };

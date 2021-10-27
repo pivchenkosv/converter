@@ -4,8 +4,8 @@ namespace App\Services\Conversion\Converters\Exchangerate;
 
 use App\ApiClients\Exchangerate\ExchangeRateApi;
 use App\Services\Conversion\ShouldConvert;
-use \App\ResultTypes\Success;
-use \App\ResultTypes\Failure;
+use App\ResultTypes\Success;
+use App\ResultTypes\Failure;
 
 class ExchangeRateConverter implements ShouldConvert
 {

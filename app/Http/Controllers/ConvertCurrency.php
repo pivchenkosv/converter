@@ -46,7 +46,7 @@ class ConvertCurrency extends Controller
         $serviceResult = (new ConversionService(new ExchangeRateConverter()))
             ->convert(ConvertCurrencyModel::find($request->currencyId), $request->to, $request->amount);
 
-        return match($serviceResult::class) {
+        return match ($serviceResult::class) {
             Success::class => response()->json(['amount' => $serviceResult->getResult()]),
             Failure::class => response()->json(['error' => $serviceResult->getMessage()], $serviceResult->getCode()),
         };
