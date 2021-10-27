@@ -5,6 +5,61 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/currencies/get": {
+            "get": {
+                "operationId": "d5cfe580ea42cc98aaefa7c04c4164d4",
+                "responses": {
+                    "200": {
+                        "description": "Get currencies available for conversion."
+                    }
+                }
+            }
+        },
+        "/api/currencies/convert": {
+            "post": {
+                "operationId": "0947b3b1d282aa30680f78172bb96b18",
+                "requestBody": {
+                    "description": "Convert currency",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "currencyId",
+                                    "amount",
+                                    "to"
+                                ],
+                                "properties": {
+                                    "currencyId": {
+                                        "type": "int",
+                                        "example": 1
+                                    },
+                                    "amount": {
+                                        "type": "string",
+                                        "example": "100"
+                                    },
+                                    "to": {
+                                        "type": "string",
+                                        "example": "BTC"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Convert currency",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/healthcheck": {
             "get": {
                 "operationId": "4970bda99966db76a55ecf26fa94249a",
