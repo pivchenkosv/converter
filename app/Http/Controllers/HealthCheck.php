@@ -14,6 +14,6 @@ class HealthCheck extends Controller
      */
     public function healthCheck()
     {
-        return response('OK', 200);
+        return response()->json('OK');
     }
 }

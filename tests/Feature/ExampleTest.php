@@ -14,7 +14,7 @@ class ExampleTest extends TestCase
      */
     public function testExample()
     {
-        $response = $this->get('/');
+        $response = $this->getJson('/api/healthcheck');
 
         $response->assertStatus(200);
     }
